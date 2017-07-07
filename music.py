@@ -10,14 +10,11 @@ def play_this(interval):
     echos = ' '.join(ECHO_INTERVALS[:6])
     os.system("""for p in '{}'; do ( play -n synth 3 pluck $p echos {} & ); done""".format(character + str(interval), echos))
 
-
-
 def start():
     while True:
         x = psutil.cpu_percent()
         while int(x) == 0:
             x = psutil.cpu_percent()
-        #print(interval)
         interval = (int(x) / 10) % 7
         play_this(interval)
         time.sleep(interval)
@@ -29,8 +26,6 @@ def trigger():
     threading.Thread(target=start).start()
     threading.Thread(target=start).start()
     threading.Thread(target=start).start()
-
-
 
 if __name__ == "__main__":
     trigger()
